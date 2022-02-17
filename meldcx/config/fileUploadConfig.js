@@ -15,6 +15,7 @@ const localStorage = multer.diskStorage({
 
 //AWS SECRET KEY CONFIG
 aws.config.update({
+  region: process.env.AWS_REGION,
   accessKeyId: process.env.AWS_ACCESS_KEYID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
@@ -27,7 +28,7 @@ const storageS3 = multerS3({
   acl: "public-read",
   contentType: multerS3.AUTO_CONTENT_TYPE,
   key(req, file, cb) {
-    cb(null, `${file.originalname + Date.now()}`);
+    cb(null, `${Date.now() + file.originalname}`);
   },
 });
 
